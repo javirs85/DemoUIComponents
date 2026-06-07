@@ -1,0 +1,71 @@
+.dui-button {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.5rem;
+  justify-content: center;
+  letter-spacing: 0;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.dui-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--dui-focus, #2563eb) 28%, transparent);
+  outline-offset: 2px;
+}
+
+.dui-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.dui-button--sm {
+  font: var(--dui-text-control-sm, 600 12px / 1 var(--dui-font-family));
+  min-height: 2rem;
+  padding: 0 0.75rem;
+}
+
+.dui-button--md {
+  font: var(--dui-text-control-md, 600 12px / 1 var(--dui-font-family));
+  min-height: 2.5rem;
+  padding: 0 1rem;
+}
+
+.dui-button--lg {
+  font: var(--dui-text-control-lg, 600 14px / 1 var(--dui-font-family));
+  min-height: 3rem;
+  padding: 0 1.25rem;
+}
+
+.dui-button--primary {
+  background: var(--dui-accent, #9d91ff);
+  color: var(--dui-on-accent, #ffffff);
+}
+
+.dui-button--primary:hover:not(:disabled) {
+  background: var(--dui-accent-hover, #513cfb);
+}
+
+.dui-button--secondary {
+  background: var(--dui-surface-muted, #1b2232);
+  border-color: var(--dui-border-l1, #252c3b);
+  color: var(--dui-text-on-muted, #d7dbe4);
+}
+
+.dui-button--secondary:hover:not(:disabled) {
+  background: var(--dui-surface-muted-hover, #20283a);
+}
+
+.dui-button--ghost {
+  background: transparent;
+  color: var(--dui-text-primary, #d7dbe4);
+}
+
+.dui-button--ghost:hover:not(:disabled) {
+  background: var(--dui-surface-muted, #1b2232);
+}
