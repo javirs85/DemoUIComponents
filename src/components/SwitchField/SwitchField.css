@@ -1,0 +1,95 @@
+.dui-switch-field {
+  color: var(--dui-text-primary, #d7dbe4);
+  cursor: pointer;
+  display: grid;
+  gap: 0.25rem;
+  max-width: 26rem;
+}
+
+.dui-switch-field__row {
+  align-items: center;
+  display: inline-grid;
+  gap: 0.5rem;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.dui-switch-field__input {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.dui-switch-field__track {
+  align-items: center;
+  background: var(--dui-input-background, #111218);
+  border: 1px solid var(--dui-border-l1, #252c3b);
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 16px;
+  padding: 1px;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+  width: 30px;
+}
+
+.dui-switch-field__thumb {
+  background: var(--dui-text-muted, #a0a7b5);
+  border-radius: 999px;
+  display: block;
+  height: 12px;
+  transition:
+    background-color 120ms ease,
+    transform 120ms cubic-bezier(0.2, 0, 0, 1);
+  width: 12px;
+}
+
+.dui-switch-field__label {
+  color: var(--dui-field-label-color, #a0a7b5);
+  font: var(--dui-text-field-label, 400 10px / 1.2 var(--dui-font-family));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.dui-switch-field:hover .dui-switch-field__track {
+  border-color: var(--dui-text-muted, #a0a7b5);
+}
+
+.dui-switch-field__input:checked + .dui-switch-field__track {
+  background: color-mix(in srgb, var(--dui-accent, #9d91ff) 28%, var(--dui-input-background, #111218));
+  border-color: color-mix(in srgb, var(--dui-accent, #9d91ff) 55%, var(--dui-border-l1, #252c3b));
+}
+
+.dui-switch-field__input:checked + .dui-switch-field__track .dui-switch-field__thumb {
+  background: var(--dui-text-primary, #d7dbe4);
+  transform: translateX(14px);
+}
+
+.dui-switch-field__input:focus-visible + .dui-switch-field__track {
+  border-color: var(--dui-focus, #9d91ff);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--dui-focus, #9d91ff) 18%, transparent);
+}
+
+.dui-switch-field__input:disabled + .dui-switch-field__track,
+.dui-switch-field__input:disabled ~ .dui-switch-field__label {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.dui-switch-field__description {
+  color: var(--dui-input-helper-color, #a0a7b5);
+  font: var(--dui-input-helper-text, 400 11px / 1.4 var(--dui-font-family));
+  padding-inline-start: 38px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dui-switch-field__track,
+  .dui-switch-field__thumb {
+    transition: none;
+  }
+}

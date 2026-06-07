@@ -16,13 +16,25 @@
 
   --dui-color-success: #18c77a;
   --dui-color-warning: #f6a700;
-  --dui-color-danger: #ff4b2f;
+  --dui-color-danger: #e25555;
 
   --dui-bg-app: var(--dui-color-dark-app-base);
   --dui-bg-grid: rgba(157, 145, 255, 0.035);
   --dui-surface-panel-l2: var(--dui-color-dark-l2-mid-panel);
   --dui-surface-panel-l1: var(--dui-color-dark-l1-main-panel);
-  --dui-surface-field: var(--dui-color-dark-l1-operational-well);
+  --dui-input-background-dark: #111218;
+  --dui-input-background-light: #f1f4f8;
+  --dui-input-background: var(--dui-input-background-dark);
+  --dui-input-text-color: var(--dui-text-primary);
+  --dui-input-placeholder-color: var(--dui-text-muted);
+  --dui-input-helper-color: var(--dui-text-muted);
+  --dui-input-text: var(--dui-text-main);
+  --dui-input-helper-text: 400 11px / 1.4 var(--dui-font-family);
+  --dui-combobox-option-hover: var(--dui-surface-muted-hover);
+  --dui-combobox-option-selected: color-mix(in srgb, var(--dui-accent) 18%, var(--dui-input-background));
+  --dui-combobox-option-selected-text: var(--dui-text-primary);
+  --dui-combobox-open-border: #9d91ff85;
+  --dui-surface-field: var(--dui-input-background);
   --dui-surface-sidebar: var(--dui-color-dark-l2-mid-panel);
   --dui-surface-muted: var(--dui-color-dark-l1-operational-well);
   --dui-surface-muted-hover: #20283a;
@@ -41,7 +53,7 @@
   --dui-text-on-muted: var(--dui-color-text-main);
   --dui-text-success: #42e49a;
   --dui-text-warning: #ffd166;
-  --dui-text-danger: #ff856f;
+  --dui-text-danger: #f06f72;
   --dui-state-success-surface: color-mix(in srgb, var(--dui-color-success) 18%, var(--dui-surface-panel-l1));
   --dui-state-success-border: color-mix(in srgb, var(--dui-color-success) 42%, var(--dui-border-l1));
   --dui-state-warning-surface: color-mix(in srgb, var(--dui-color-warning) 18%, var(--dui-surface-panel-l1));
@@ -59,6 +71,12 @@
   --dui-panel-header-height: 64px;
   --dui-panel-header-padding: 12px;
   --dui-panel-body-padding: 8px;
+  --dui-form-group-gap: 28px;
+  --dui-form-item-gap: 8px;
+  --dui-form-group-title-gap: 8px;
+  --dui-option-button-background: var(--dui-surface-muted);
+  --dui-option-button-background-hover: var(--dui-surface-muted-hover);
+  --dui-option-button-border: transparent;
 
   --dui-font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -66,6 +84,16 @@
   --dui-text-main: 400 12px / 1.45 var(--dui-font-family);
   --dui-text-secondary: 400 12px / 1.45 var(--dui-font-family);
   --dui-text-section-header: 600 12px / 1.25 var(--dui-font-family);
+  --dui-text-field-label: 400 10px / 1.2 var(--dui-font-family);
+  --dui-field-label-color: color-mix(in srgb, var(--dui-text-primary) 50%, transparent);
+  --dui-text-object-list-heading: 700 10px / 1.2 var(--dui-font-family);
+  --dui-object-list-heading-divider: linear-gradient(
+    90deg,
+    color-mix(in srgb, #242834 0%, transparent) 0%,
+    #434e70 10%,
+    #434e70 90%,
+    color-mix(in srgb, #242834 0%, transparent) 100%
+  );
   --dui-text-page-title: 600 18px / 1.2 var(--dui-font-family);
   --dui-text-control-sm: 600 12px / 1 var(--dui-font-family);
   --dui-text-control-md: 600 12px / 1 var(--dui-font-family);
@@ -94,13 +122,23 @@
 
   --dui-color-success: #0c8f59;
   --dui-color-warning: #b16b00;
-  --dui-color-danger: #c73f2f;
+  --dui-color-danger: #b9363e;
 
   --dui-bg-app: var(--dui-color-light-app-base);
   --dui-bg-grid: rgba(91, 92, 226, 0.055);
   --dui-surface-panel-l2: var(--dui-color-light-l2-mid-panel);
   --dui-surface-panel-l1: var(--dui-color-light-l1-main-panel);
-  --dui-surface-field: var(--dui-color-light-l1-operational-well);
+  --dui-input-background: var(--dui-input-background-light);
+  --dui-input-text-color: var(--dui-text-primary);
+  --dui-input-placeholder-color: var(--dui-text-muted);
+  --dui-input-helper-color: var(--dui-text-muted);
+  --dui-input-text: var(--dui-text-main);
+  --dui-input-helper-text: 400 11px / 1.4 var(--dui-font-family);
+  --dui-combobox-option-hover: var(--dui-surface-muted-hover);
+  --dui-combobox-option-selected: color-mix(in srgb, var(--dui-accent) 12%, var(--dui-input-background));
+  --dui-combobox-option-selected-text: var(--dui-text-primary);
+  --dui-combobox-open-border: color-mix(in srgb, var(--dui-focus) 52%, transparent);
+  --dui-surface-field: var(--dui-input-background);
   --dui-surface-sidebar: var(--dui-color-light-l2-mid-panel);
   --dui-surface-muted: var(--dui-color-light-l1-operational-well);
   --dui-surface-muted-hover: #e8edf5;
@@ -119,7 +157,7 @@
   --dui-text-on-muted: var(--dui-color-light-text-main);
   --dui-text-success: #08784b;
   --dui-text-warning: #895200;
-  --dui-text-danger: #b13224;
+  --dui-text-danger: #a92f38;
   --dui-state-success-surface: color-mix(in srgb, var(--dui-color-success) 12%, var(--dui-surface-panel-l1));
   --dui-state-success-border: color-mix(in srgb, var(--dui-color-success) 34%, var(--dui-border-l1));
   --dui-state-warning-surface: color-mix(in srgb, var(--dui-color-warning) 12%, var(--dui-surface-panel-l1));
@@ -130,6 +168,9 @@
   --dui-surface: var(--dui-surface-panel-l1);
   --dui-border: var(--dui-border-l1);
   --dui-text: var(--dui-text-primary);
+  --dui-option-button-background: var(--dui-surface-muted);
+  --dui-option-button-background-hover: var(--dui-surface-muted-hover);
+  --dui-option-button-border: var(--dui-border-l1);
 }
 
 .dui-text-section-title {

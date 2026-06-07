@@ -156,6 +156,48 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 }
 
+.workbench-forms-panel,
+.workbench-forms-panel > .dui-panel__body,
+.workbench-field-demo,
+.workbench-field-demo > .dui-panel__body {
+  overflow: visible;
+}
+
+.workbench-field-demo {
+  position: relative;
+  z-index: 1;
+}
+
+.workbench-field-demo:focus-within {
+  z-index: 3;
+}
+
+.workbench-inspector-demo {
+  max-width: 16rem;
+}
+
+.workbench-option-icon {
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  display: block;
+  height: 14px;
+  position: relative;
+  width: 14px;
+}
+
+.workbench-option-icon::after {
+  border-right: 1.5px solid currentColor;
+  border-top: 1.5px solid currentColor;
+  content: "";
+  display: block;
+  height: 4px;
+  left: 4px;
+  position: absolute;
+  top: 4px;
+  transform: rotate(45deg);
+  width: 4px;
+}
+
 .workbench-token-grid {
   display: grid;
   gap: 0.75rem;

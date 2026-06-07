@@ -1,0 +1,23 @@
+.dui-form-stack {
+  display: grid;
+  gap: var(--dui-form-group-gap, 24px);
+}
+
+.dui-form-group {
+  display: grid;
+  gap: var(--dui-form-group-title-gap, 8px);
+  min-width: 0;
+}
+
+.dui-form-group__title {
+  color: var(--dui-field-label-color, #a0a7b5);
+  font: var(--dui-text-field-label, 400 10px / 1.2 var(--dui-font-family));
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.dui-form-group__items {
+  display: grid;
+  gap: var(--dui-form-item-gap, 10px);
+  min-width: 0;
+}
