@@ -1,0 +1,39 @@
+.dui-card {
+  background: var(--dui-surface-panel-l2, #0c1322);
+  border: 1px solid var(--dui-border-l2, #1b202c);
+  border-radius: var(--dui-radius-l2, 12px);
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  min-height: 200px;
+  min-width: 0;
+}
+
+.dui-card__header {
+  align-items: center;
+  border-bottom: 1px solid var(--dui-border-header-l2, #151923);
+  display: flex;
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.dui-card__title {
+  color: var(--dui-text-primary);
+  font: var(--dui-text-section-header, 600 12px / 1.25 var(--dui-font-family));
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dui-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px;
+}

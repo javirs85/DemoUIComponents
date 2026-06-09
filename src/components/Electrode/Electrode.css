@@ -1,0 +1,100 @@
+/* Base — size is set per state */
+.dui-electrode {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  transition: width 150ms ease, height 150ms ease;
+}
+
+/* Closed: small footprint */
+.dui-electrode--closed {
+  height: 10px;
+  width: 10px;
+}
+
+/* Open: full size */
+.dui-electrode--open {
+  height: 24px;
+  width: 24px;
+}
+
+/* Visual circle via ::before (position:absolute — doesn't affect layout) */
+.dui-electrode::before {
+  background: #393786;
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  content: '';
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  transition:
+    transform 150ms ease,
+    opacity 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+  width: 100%;
+}
+
+/* Closed: 2px dot (2/10 = 0.2) */
+.dui-electrode--closed::before {
+  opacity: 0.5;
+  transform: scale(0.2);
+}
+
+/* Closed hover: outlined 24px circle (24/10 = 2.4 — overflows bounds, no layout shift) */
+.dui-electrode--closed:hover::before {
+  background-color: transparent;
+  border-color: #393786;
+  opacity: 1;
+  transform: scale(2.4);
+}
+
+/* Open: full solid circle */
+.dui-electrode--open::before {
+  background-color: #393786;
+  border-color: transparent;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Open hover: brighter fill only */
+.dui-electrode--open:hover::before {
+  background-color: #4a48a8;
+}
+
+/* Label sits above ::before */
+.dui-electrode__label {
+  color: #ffffff;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  position: relative;
+  transition: opacity 150ms ease;
+  user-select: none;
+  z-index: 1;
+}
+
+/* Label hidden in closed state */
+.dui-electrode--closed .dui-electrode__label {
+  opacity: 0;
+}
+
+/* Label visible in muted white on hover (outlined) state */
+.dui-electrode--closed:hover .dui-electrode__label {
+  opacity: 0.5;
+}
+
+/* Label fully visible in open state */
+.dui-electrode--open .dui-electrode__label {
+  opacity: 1;
+}

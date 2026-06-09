@@ -2,16 +2,22 @@ import { useState } from "react";
 import {
   Badge,
   Button,
+  Card,
   ComboBox,
+  DevicePanel,
   FormGroup,
   FormStack,
+  Icon,
   ObjectList,
   ObjectListItem,
   Panel,
   StatusSummary,
   SwitchField,
   TextField,
+  TopBar,
 } from "../components";
+import type { CardListConfig, IconName, ObjectListMarker, TopBarNavItem, TopBarStatusItem } from "../components";
+import { iconMap } from "../components/Icon/iconMap";
 import { darkColors, lightColors, semanticTokens } from "../styles";
 
 const variants = ["primary", "secondary", "ghost"] as const;
@@ -40,14 +46,62 @@ const metadataFields = [
   { id: "device-serial", marker: "warning", subtitle: "unused", title: "Device Serial" },
   { id: "sampling-rate", marker: "success", title: "Sampling Rate" },
 ] as const;
-const triggerFields = ["TargetTrigger", "NonTargetTrigger", "EyesClosed", "FreeRun"] as const;
+const triggerFields: Array<{ id: string; marker: ObjectListMarker; title: string; subtitle?: string }> = [
+  { id: "noclass", marker: "warning", title: "NoClass", subtitle: "Substatus" },
+  { id: "eyesopen", marker: "danger", title: "EyesOpen", subtitle: "Substatus" },
+  { id: "eyesclosed", marker: "success", title: "EyesClosed" },
+  { id: "freerun", marker: "success", title: "FreeRun" },
+];
+
+const sessionFields: Array<{ id: string; marker: ObjectListMarker; title: string }> = [
+  { id: "sess-alpha", marker: "success", title: "Session Alpha" },
+  { id: "sess-beta", marker: "success", title: "Session Beta" },
+];
+
+const controlTriggers: Array<{ id: string; marker: ObjectListMarker; title: string }> = [
+  { id: "ct-1", marker: "success", title: "TargetTrigger" },
+  { id: "ct-2", marker: "success", title: "NonTargetTrigger" },
+];
+
+const controlSignals: Array<{ id: string; marker: ObjectListMarker; title: string; subtitle?: string }> = [
+  { id: "cs-1", marker: "success", title: "Alpha Power" },
+  { id: "cs-2", marker: "success", title: "Beta Power" },
+  { id: "cs-3", marker: "warning", title: "Theta Power", subtitle: "unmapped" },
+];
+
+const topBarNavItems: TopBarNavItem[] = [
+  { id: "design", label: "Design", iconName: "Design" },
+  { id: "process", label: "Process", iconName: "Proccess" },
+  { id: "analyze", label: "Analyze", iconName: "Analyze" },
+  { id: "deploy", label: "Deploy", iconName: "Deploy" },
+];
+
+const topBarStatusItems: TopBarStatusItem[] = [
+  { iconName: "Amplifier", ariaLabel: "Amplifier", badge: "success" },
+  { iconName: "Cloud", ariaLabel: "Cloud sync", badge: "warning" },
+  { iconName: "Runner", ariaLabel: "Runner", badge: "danger" },
+  { iconName: "MCP", ariaLabel: "MCP", badge: "success" },
+];
 
 export function Workbench() {
   const [theme, setTheme] = useState<(typeof themes)[number]>("dark");
+  const [activeNav, setActiveNav] = useState("design");
   const activeColors = theme === "dark" ? darkColors : lightColors;
 
   return (
     <main className="workbench-shell" data-theme={theme}>
+      <div className="workbench-topbar">
+        <TopBar
+          activeNavId={activeNav}
+          fileName="Relaxation Alpha Study"
+          fileStatus="success"
+          navItems={topBarNavItems}
+          onNavChange={setActiveNav}
+          onUserClick={() => undefined}
+          statusItems={topBarStatusItems}
+          userInitials="MP"
+        />
+      </div>
       <aside className="workbench-sidebar" aria-label="Component navigation">
         <div>
           <p className="workbench-kicker">React workbench</p>
@@ -66,9 +120,16 @@ export function Workbench() {
           ))}
         </div>
         <nav>
+          <a href="/studio.html" className="workbench-nav-app-link" target="_blank" rel="noreferrer">
+            <Icon name="Design" size={12} />
+            Open Studio page ↗
+          </a>
           <a href="#buttons">Buttons</a>
           <a href="#badges">Badges</a>
           <a href="#forms">Forms</a>
+          <a href="#device-panel">Device Panel</a>
+          <a href="#cards">Cards</a>
+          <a href="#icons">Icons</a>
           <a href="#tokens">Tokens</a>
         </nav>
       </aside>
@@ -212,7 +273,7 @@ export function Workbench() {
                 <ObjectList addLabel="Add Options">
                   {optionRows.map((option) => (
                     <ObjectListItem
-                      icon={<span aria-hidden="true" className="workbench-option-icon" />}
+                      icon={<Icon name="Output" size={16} />}
                       key={option}
                       title={option}
                       variant="surface"
@@ -242,17 +303,194 @@ export function Workbench() {
               />
             </Panel>
             <Panel className="workbench-field-demo" level="l1" title="Collapsible list">
-              <ObjectList
-                addLabel="Add Triggers"
-                collapsible
-                heading="Triggers"
-                status={<StatusSummary count={2} tone="success" />}
-              >
-                {triggerFields.map((trigger) => (
-                  <ObjectListItem key={trigger} marker="success" title={trigger} />
-                ))}
-              </ObjectList>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.125rem" }}>
+                <ObjectList
+                  addLabel="Add Class ID"
+                  collapsible
+                  defaultOpen={false}
+                  getKey={(t) => t.id}
+                  getMarker={(t) => t.marker}
+                  heading="CLASS ID"
+                  items={triggerFields}
+                  renderItem={(item) => (
+                    <ObjectListItem
+                      marker={item.marker}
+                      subtitle={item.subtitle}
+                      title={item.title}
+                    />
+                  )}
+                />
+                <ObjectList
+                  addLabel="Add Session"
+                  collapsible
+                  defaultOpen={false}
+                  getKey={(t) => t.id}
+                  getMarker={(t) => t.marker}
+                  heading="SESSIONS"
+                  items={sessionFields}
+                  renderItem={(item) => (
+                    <ObjectListItem
+                      marker={item.marker}
+                      title={item.title}
+                    />
+                  )}
+                />
+              </div>
             </Panel>
+          </div>
+        </Panel>
+
+        <section id="device-panel">
+          <p className="workbench-section-label">Device Panel</p>
+          <div className="workbench-row" style={{ alignItems: "flex-start", gap: "2rem" }}>
+            <DevicePanel
+              title="BCI Device"
+              icon={<Icon name="MCP" size={20} />}
+              status="connected"
+              fields={[
+                { label: "Device", value: "BCI Core 8" },
+                { label: "Serial number", value: "U8-2024.07.33" },
+                { label: "Sampling", value: "250 Hz" },
+                { label: "Channels", value: "8 channels" },
+                { label: "Battery", value: "82%" },
+              ]}
+              actionIcon={<Icon name="Disconnected" size={14} />}
+              actionLabel="Disconnect"
+              onAction={() => undefined}
+              trigger={
+                <button className="workbench-icon-btn" type="button" aria-label="BCI Device">
+                  <Icon name="Connected" size={18} />
+                </button>
+              }
+            />
+            <DevicePanel
+              title="BCI Device"
+              icon={<Icon name="MCP" size={20} />}
+              status="disconnected"
+              fields={[
+                { label: "Device", value: "BCI Core 8" },
+                { label: "Last seen", value: "2 min ago" },
+              ]}
+              actionIcon={<Icon name="Connected" size={14} />}
+              actionLabel="Connect"
+              onAction={() => undefined}
+              trigger={
+                <button className="workbench-icon-btn" type="button" aria-label="BCI Device">
+                  <Icon name="Disconnected" size={18} />
+                </button>
+              }
+            />
+          </div>
+        </section>
+
+        <section id="cards">
+          <p className="workbench-section-label">Cards</p>
+          <div className="workbench-form-grid">
+            <Card
+              title="Definitions"
+              lists={[
+                {
+                  heading: "CLASS ID",
+                  items: triggerFields,
+                  getKey: (item) => item.id,
+                  getMarker: (item) => item.marker,
+                  addLabel: "Add Class ID",
+                  renderItem: (item) => (
+                    <ObjectListItem marker={item.marker} subtitle={item.subtitle} title={item.title} />
+                  ),
+                } satisfies CardListConfig,
+                {
+                  heading: "SESSIONS",
+                  items: sessionFields,
+                  getKey: (item) => item.id,
+                  getMarker: (item) => item.marker,
+                  addLabel: "Add Session",
+                  renderItem: (item) => (
+                    <ObjectListItem marker={item.marker} title={item.title} />
+                  ),
+                } satisfies CardListConfig,
+              ]}
+            />
+            <Card
+              title="Control"
+              lists={[
+                {
+                  heading: "TRIGGERS",
+                  items: controlTriggers,
+                  getKey: (item) => item.id,
+                  getMarker: (item) => item.marker,
+                  addLabel: "Add Trigger",
+                  renderItem: (item) => (
+                    <ObjectListItem marker={item.marker} title={item.title} />
+                  ),
+                } satisfies CardListConfig,
+                {
+                  heading: "CONTROL SIGNALS",
+                  items: controlSignals,
+                  getKey: (item) => item.id,
+                  getMarker: (item) => item.marker,
+                  addLabel: "Add Signal",
+                  renderItem: (item) => (
+                    <ObjectListItem marker={item.marker} subtitle={item.subtitle} title={item.title} />
+                  ),
+                } satisfies CardListConfig,
+              ]}
+            />
+            <Card
+              title="Metadata"
+              lists={[
+                {
+                  items: metadataFields,
+                  getKey: (item) => item.id,
+                  getMarker: (item) => item.marker,
+                  addLabel: "Add Metadata Field",
+                  renderItem: (item) => (
+                    <ObjectListItem
+                      marker={item.marker}
+                      subtitle={"subtitle" in item ? item.subtitle : undefined}
+                      title={item.title}
+                    />
+                  ),
+                } satisfies CardListConfig,
+              ]}
+            />
+          </div>
+        </section>
+
+        <Panel
+          actions={<Badge tone="neutral">{Object.keys(iconMap).length} icons</Badge>}
+          icon={<Icon name="Paradigm" size={16} />}
+          id="icons"
+          title="Icons"
+        >
+          <p className="workbench-section-label">All icons</p>
+          <div className="workbench-icon-grid">
+            {(Object.keys(iconMap) as IconName[]).map((name) => (
+              <div className="workbench-icon-item" key={name}>
+                <Icon name={name} />
+                <span className="workbench-icon-label">{name}</span>
+              </div>
+            ))}
+          </div>
+          <p className="workbench-section-label workbench-section-label--spaced">Badges</p>
+          <div className="workbench-row">
+            <Icon name="Runner" badge="success" />
+            <Icon name="Runner" badge="warning" />
+            <Icon name="Runner" badge="danger" />
+          </div>
+          <p className="workbench-section-label workbench-section-label--spaced">Muted</p>
+          <div className="workbench-row" style={{ alignItems: "center" }}>
+            <Icon name="Runner" />
+            <Icon name="Runner" muted />
+            <Icon name="Runner" badge="success" muted />
+          </div>
+          <p className="workbench-section-label workbench-section-label--spaced">Sizes</p>
+          <div className="workbench-row" style={{ alignItems: "center" }}>
+            <Icon name="Paradigm" size={16} />
+            <Icon name="Paradigm" size={20} />
+            <Icon name="Paradigm" size={24} />
+            <Icon name="Paradigm" size={32} />
+            <Icon name="Paradigm" size={48} />
           </div>
         </Panel>
 
@@ -261,8 +499,7 @@ export function Workbench() {
           icon={<span aria-hidden="true">::</span>}
           id="tokens"
           title="Theme Tokens"
-        >
-          <p className="workbench-section-label">Semantic definitions</p>
+        >          <p className="workbench-section-label">Semantic definitions</p>
           <div className="workbench-token-grid">
             {Object.entries(semanticTokens).map(([name, value]) => (
               <Panel className="workbench-token" key={name} level="l1" title={name}>

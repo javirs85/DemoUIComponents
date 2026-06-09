@@ -1,5 +1,31 @@
-import { useState, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from "react";
+import { useMemo, useState, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from "react";
+import { Icon } from "../Icon";
+import type { IconName } from "../Icon";
 import "./ObjectList.css";
+
+const markerIconMap: Record<ObjectListMarker, IconName> = {
+  neutral: "Dash",
+  success: "Green",
+  warning: "Warning",
+  danger: "Error",
+};
+
+const markerSizeMap: Record<ObjectListMarker, number> = {
+  neutral: 8,
+  success: 8,
+  warning: 20,
+  danger: 20,
+};
+
+const statusIconMap: Record<Exclude<ObjectListMarker, "neutral">, IconName> = {
+  success: "Tick",
+  warning: "Exclamation",
+  danger: "Error",
+};
+
+const statusIconWidthMap: Partial<Record<Exclude<ObjectListMarker, "neutral">, number>> = {
+  warning: 4,
+};
 
 export type ObjectListMarker = "neutral" | "success" | "warning" | "danger";
 
@@ -9,6 +35,7 @@ export interface ObjectListProps<TItem = unknown> extends Omit<HTMLAttributes<HT
   collapsible?: boolean;
   defaultOpen?: boolean;
   getKey?: (item: TItem, index: number) => string | number;
+  getMarker?: (item: TItem) => ObjectListMarker | undefined;
   heading?: ReactNode;
   items?: readonly TItem[];
   onAdd?: () => void;
@@ -48,6 +75,7 @@ export function ObjectList<TItem = unknown>({
   collapsible = false,
   defaultOpen = true,
   getKey,
+  getMarker,
   heading,
   items,
   onAdd,
@@ -58,6 +86,24 @@ export function ObjectList<TItem = unknown>({
   ...props
 }: ObjectListProps<TItem>) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  const derivedStatus = useMemo(() => {
+    if (status !== undefined || !getMarker || !items?.length) return null;
+    const counts = { success: 0, warning: 0, danger: 0 };
+    for (const item of items) {
+      const m = getMarker(item);
+      if (m === "success") counts.success++;
+      else if (m === "warning") counts.warning++;
+      else if (m === "danger") counts.danger++;
+    }
+    const pills = (["success", "warning", "danger"] as const)
+      .filter((tone) => counts[tone] > 0)
+      .map((tone) => <StatusSummary count={counts[tone]} key={tone} tone={tone} />);
+    return pills.length > 0 ? pills : null;
+  }, [items, getMarker, status]);
+
+  const resolvedStatus = status ?? derivedStatus;
+
   const renderedItems =
     items && renderItem
       ? items.map((item, index) => {
@@ -79,7 +125,7 @@ export function ObjectList<TItem = unknown>({
   const headingContent = (
     <>
       <span className="dui-object-list__heading-text">{heading}</span>
-      {status ? <span className="dui-object-list__status">{status}</span> : null}
+      {resolvedStatus ? <span className="dui-object-list__status">{resolvedStatus}</span> : null}
     </>
   );
 
@@ -131,7 +177,9 @@ export function ObjectListItem({
       {icon ? (
         <span className="dui-object-list-item__icon">{icon}</span>
       ) : (
-        <span aria-hidden="true" className={`dui-object-list-item__marker dui-object-list-item__marker--${marker}`} />
+        <span className="dui-object-list-item__marker">
+          <Icon name={markerIconMap[marker]} size={markerSizeMap[marker]} />
+        </span>
       )}
       <span className="dui-object-list-item__content">
         <span className="dui-object-list-item__title">{title}</span>
@@ -150,7 +198,7 @@ export function ObjectListAddAction({
 }: ObjectListAddActionProps) {
   return (
     <button className={`dui-object-list-add ${className}`.trim()} type={type} {...props}>
-      <span aria-hidden="true" className="dui-object-list-add__icon">+</span>
+      <Icon name="Plus" size={20} />
       <span>{children}</span>
     </button>
   );
@@ -164,7 +212,7 @@ export function StatusSummary({
 }: StatusSummaryProps) {
   return (
     <span className={`dui-status-summary dui-status-summary--${tone} ${className}`.trim()} {...props}>
-      <span aria-hidden="true" className="dui-status-summary__icon" />
+      <Icon name={statusIconMap[tone]} size={12} width={statusIconWidthMap[tone]} />
       {typeof count === "number" ? <span>{count}</span> : null}
     </span>
   );
@@ -180,7 +228,7 @@ export function ObjectListRowActions({
     <span className={`dui-object-list-row-actions ${className}`.trim()} {...props}>
       {onEdit ? (
         <button aria-label="Edit item" className="dui-object-list-row-actions__button" onClick={onEdit} type="button">
-          <span aria-hidden="true" className="dui-object-list-row-actions__icon dui-object-list-row-actions__icon--edit" />
+          <Icon name="Dots" size={14} />
         </button>
       ) : null}
       {onDelete ? (
@@ -190,7 +238,7 @@ export function ObjectListRowActions({
           onClick={onDelete}
           type="button"
         >
-          <span aria-hidden="true" className="dui-object-list-row-actions__icon dui-object-list-row-actions__icon--trash" />
+          <Icon name="DeleteX" size={14} />
         </button>
       ) : null}
     </span>

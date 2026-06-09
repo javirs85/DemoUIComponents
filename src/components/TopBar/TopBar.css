@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;700&display=swap');
+
+.dui-top-bar {
+  align-items: center;
+  background: var(--dui-surface-panel-l1);
+  border-bottom: 1px solid var(--dui-border-header-l1);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  height: 38px;
+  min-width: 0;
+  padding: 0 0.5rem;
+}
+
+/* ── LEFT ── */
+
+.dui-top-bar__left {
+  align-items: center;
+  display: flex;
+  gap: 0.625rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dui-top-bar__brand {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.5rem;
+}
+
+.dui-top-bar__app-name {
+  color: var(--dui-text-primary);
+  font-family: Manrope, var(--dui-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.dui-top-bar__divider {
+  background: var(--dui-border-l1);
+  flex-shrink: 0;
+  height: 18px;
+  width: 1px;
+}
+
+.dui-top-bar__file {
+  align-items: center;
+  display: flex;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.dui-top-bar__file-name {
+  color: var(--dui-text-muted);
+  font-family: Manrope, var(--dui-font-family);
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.dui-top-bar__file-chevron {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  color: var(--dui-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 2px;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.dui-top-bar__file-chevron:hover {
+  background: color-mix(in srgb, var(--dui-text-primary) 10%, transparent);
+  color: var(--dui-text-primary);
+}
+
+.dui-top-bar__file-chevron:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--dui-focus) 28%, transparent);
+  outline-offset: 2px;
+}
+
+/* ── CENTER ── */
+
+.dui-top-bar__center {
+  align-items: stretch;
+  display: flex;
+  height: 38px;
+}
+
+.dui-top-bar__nav-btn {
+  --dui-text-primary: var(--dui-text-muted);
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--dui-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: Inter, var(--dui-font-family);
+  font-size: 10px;
+  font-weight: 400;
+  gap: 0.375rem;
+  line-height: 1;
+  padding: 0 0.875rem;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+  white-space: nowrap;
+}
+
+.dui-top-bar__nav-btn:hover {
+  background: color-mix(in srgb, var(--dui-text-primary) 6%, transparent);
+  color: var(--dui-text-muted);
+}
+
+.dui-top-bar__nav-btn--selected {
+  --dui-text-primary: var(--dui-accent);
+  background: color-mix(in srgb, var(--dui-accent) 10%, transparent);
+  border-bottom-color: var(--dui-accent);
+  color: var(--dui-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.dui-top-bar__nav-btn--selected:hover {
+  background: color-mix(in srgb, var(--dui-accent) 15%, transparent);
+  color: var(--dui-accent);
+}
+
+.dui-top-bar__nav-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--dui-focus) 28%, transparent);
+  outline-offset: -2px;
+}
+
+/* ── RIGHT ── */
+
+.dui-top-bar__right {
+  align-items: center;
+  display: flex;
+  gap: 1.125rem;
+  justify-content: flex-end;
+}
+
+.dui-top-bar__icon-btn {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--dui-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  height: 24px;
+  justify-content: center;
+  opacity: 0.55;
+  padding: 0;
+  transition:
+    background-color 120ms ease,
+    opacity 120ms ease;
+  width: 24px;
+}
+
+.dui-top-bar__icon-btn:hover {
+  background: color-mix(in srgb, var(--dui-text-primary) 8%, transparent);
+  opacity: 1;
+}
+
+.dui-top-bar__icon-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--dui-focus) 28%, transparent);
+  outline-offset: 2px;
+}
+
+.dui-top-bar__user-btn {
+  align-items: center;
+  background: var(--dui-top-bar-user-bg);
+  border: 0;
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-family: Manrope, var(--dui-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  height: 32px;
+  justify-content: center;
+  line-height: 1;
+  margin-left: 18px;
+  transition: background-color 120ms ease;
+  user-select: none;
+  width: 32px;
+}
+
+.dui-top-bar__user-btn:hover {
+  background: color-mix(in srgb, var(--dui-top-bar-user-bg) 80%, #fff 20%);
+}
+
+.dui-top-bar__user-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--dui-focus) 28%, transparent);
+  outline-offset: 2px;
+}

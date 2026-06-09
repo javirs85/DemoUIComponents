@@ -22,6 +22,7 @@
   border: 1px solid var(--dui-border-field, transparent);
   border-radius: 6px;
   color: var(--dui-input-text-color, #d7dbe4);
+  cursor: pointer;
   font: var(--dui-input-text, 400 12px / 1.45 var(--dui-font-family));
   min-height: 28px;
   padding: 0 2rem 0 0.75rem;

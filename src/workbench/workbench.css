@@ -18,15 +18,18 @@ a {
 }
 
 .workbench-shell {
-  background:
-    linear-gradient(var(--dui-bg-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--dui-bg-grid) 1px, transparent 1px),
-    var(--dui-bg-app);
-  background-size: 16px 16px;
+  background: var(--dui-bg-app);
   color: var(--dui-text-primary);
   display: grid;
   grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
   min-height: 100vh;
+}
+
+.workbench-topbar {
+  grid-column: 1 / -1;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .workbench-sidebar {
@@ -35,10 +38,10 @@ a {
   border-right: 1px solid var(--dui-border-l2);
   display: grid;
   gap: 2rem;
-  height: 100vh;
+  height: calc(100vh - 38px);
   padding: 1.5rem;
   position: sticky;
-  top: 0;
+  top: 38px;
 }
 
 .workbench-kicker {
@@ -110,6 +113,22 @@ a {
   color: var(--dui-text-primary);
 }
 
+.workbench-nav-app-link {
+  align-items: center;
+  background: color-mix(in srgb, var(--dui-accent) 10%, transparent) !important;
+  border-color: color-mix(in srgb, var(--dui-accent) 30%, transparent) !important;
+  color: var(--dui-accent) !important;
+  display: flex;
+  gap: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.workbench-nav-app-link:hover {
+  background: color-mix(in srgb, var(--dui-accent) 18%, transparent) !important;
+  border-color: color-mix(in srgb, var(--dui-accent) 50%, transparent) !important;
+  color: var(--dui-accent) !important;
+}
+
 .workbench-content {
   display: grid;
   gap: 1rem;
@@ -148,6 +167,30 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+.workbench-icon-btn {
+  align-items: center;
+  background: color-mix(in srgb, var(--dui-text-primary) 8%, transparent);
+  border: 1px solid var(--dui-border-l1);
+  border-radius: 8px;
+  color: var(--dui-text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 120ms ease;
+  width: 32px;
+}
+
+.workbench-icon-btn:hover {
+  background: color-mix(in srgb, var(--dui-text-primary) 14%, transparent);
+}
+
+.workbench-icon-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--dui-focus) 28%, transparent);
+  outline-offset: 2px;
 }
 
 .workbench-form-grid {
@@ -196,6 +239,33 @@ a {
   top: 4px;
   transform: rotate(45deg);
   width: 4px;
+}
+.workbench-icon-grid {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+}
+
+.workbench-icon-item {
+  align-items: center;
+  background: var(--dui-surface-muted);
+  border: 1px solid var(--dui-border-l1);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem;
+}
+
+.workbench-icon-label {
+  color: var(--dui-text-muted);
+  font: var(--dui-text-field-label);
+  letter-spacing: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .workbench-token-grid {
