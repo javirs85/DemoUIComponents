@@ -362,7 +362,7 @@ export function Process() {
               </div>
             }
           >
-            {/* pipeline canvas — to be built */}
+            {null}
           </Panel>
         </div>
 
