@@ -2,6 +2,10 @@ import { useRef, useState } from "react";
 import { Icon, IconButton, ObjectList, ObjectListItem, Panel, SelectField, SwitchField, TextField, TopBar } from "../components";
 import type { ObjectListMarker, TopBarNavItem, TopBarStatusItem } from "../components";
 import "./process.css";
+import widget1 from "../Images/Widget (1).png";
+import widget2 from "../Images/Widget (2).png";
+import widget3 from "../Images/Widget (3).png";
+import widget4 from "../Images/Widget (4).png";
 
 const PANEL_ANIM_MS = 160; // keep in sync with transition duration in process.css
 
@@ -206,10 +210,10 @@ function WidgetPopup({ anchor, onClose }: { anchor: DOMRect; onClose: () => void
 }
 
 const widgets = [
-  { title: "Raw EEG",              color: "#22c55e", units: "+/- 10uV", img: "/src/Images/Widget (1).png" },
-  { title: "Alpha Power 8\u201312 Hz",   color: "#818cf8", units: "uV\xb3/Hz",  img: "/src/Images/Widget (2).png" },
-  { title: "Alpha Asymmetry (C3\u2013C4)", color: "#f97316", units: "%",       img: "/src/Images/Widget (3).png" },
-  { title: "Filtered EEG",         color: "#f97316", units: "+/- 10uV", img: "/src/Images/Widget (4).png" },
+  { title: "Raw EEG",              color: "#22c55e", units: "+/- 10uV", img: widget1 },
+  { title: "Alpha Power 8\u201312 Hz",   color: "#818cf8", units: "uV\xb3/Hz",  img: widget2 },
+  { title: "Alpha Asymmetry (C3\u2013C4)", color: "#f97316", units: "%",       img: widget3 },
+  { title: "Filtered EEG",         color: "#f97316", units: "+/- 10uV", img: widget4 },
 ];
 
 export function Process() {
